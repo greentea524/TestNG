@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="6" passed="6">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="26901" started-at="2015-07-17T21:34:52Z" finished-at="2015-07-17T21:35:19Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="26901" started-at="2015-07-17T21:34:52Z" finished-at="2015-07-17T21:35:19Z">
+      <class name="TestNG.TestNG">
+        <test-method status="PASS" signature="openUrl()[pri:0, instance:TestNG.TestNG@83a74a]" name="openUrl" is-config="true" duration-ms="249" started-at="2015-07-17T14:34:52Z" finished-at="2015-07-17T14:34:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openUrl -->
+        <test-method status="PASS" signature="a_test()[pri:0, instance:TestNG.TestNG@83a74a]" name="a_test" duration-ms="5" started-at="2015-07-17T14:34:53Z" finished-at="2015-07-17T14:34:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- a_test -->
+        <test-method status="PASS" signature="b_test()[pri:0, instance:TestNG.TestNG@83a74a]" name="b_test" duration-ms="1" started-at="2015-07-17T14:34:53Z" finished-at="2015-07-17T14:34:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- b_test -->
+        <test-method status="PASS" signature="c_test()[pri:0, instance:TestNG.TestNG@83a74a]" name="c_test" duration-ms="0" started-at="2015-07-17T14:34:53Z" finished-at="2015-07-17T14:34:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- c_test -->
+        <test-method status="PASS" signature="checkAPIpage()[pri:0, instance:TestNG.TestNG@83a74a]" name="checkAPIpage" duration-ms="513" started-at="2015-07-17T14:34:53Z" finished-at="2015-07-17T14:34:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkAPIpage -->
+        <test-method status="PASS" signature="createDevice()[pri:0, instance:TestNG.TestNG@83a74a]" name="createDevice" duration-ms="9259" started-at="2015-07-17T14:34:53Z" finished-at="2015-07-17T14:35:02Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createDevice -->
+        <test-method status="PASS" signature="NSD()[pri:0, instance:TestNG.TestNG@83a74a]" name="NSD" duration-ms="16860" started-at="2015-07-17T14:35:02Z" finished-at="2015-07-17T14:35:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NSD -->
+      </class> <!-- TestNG.TestNG -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
