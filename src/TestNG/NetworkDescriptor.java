@@ -53,7 +53,7 @@ public class NetworkDescriptor {
 		
     }
 	public void createNSD(){
-		System.out.println("createNSD");
+		System.out.println("create network descriptor");
     	System.out.println(nsdPortlet);
         action.clickMenu(driver,nsdPortlet,newMenu);
 	}
