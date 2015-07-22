@@ -42,13 +42,13 @@ public class ManagedResource {
         // create new device and input IP address
         //Select Vendor
         action.clickElement(driver,vendorSel);
-        action.selectVisible(vendorSel, "Unknown");
+        action.selectVisible(driver, vendorSel, "Unknown");
         //Select Type
-        action.selectVisible(typeSel, "Other");
+        action.selectVisible(driver, typeSel, "Other");
         //Select Model
-        action.selectVisible(modelSel, "Unknown");
+        action.selectVisible(driver, modelSel, "Unknown");
         //Create
-        action.clickAdd();
+        action.clickAdd(driver);
         
         action.clickLinkText("General");
         //Fill device name
@@ -57,7 +57,7 @@ public class ManagedResource {
         action.sendKey(equipIP, "10.128.99."+Calendar.DAY_OF_WEEK);
 
         //Click Save or Close
-        action.clickClose();   
+        action.clickClose(driver);   
         
         //validate save closed window successfully
         try{

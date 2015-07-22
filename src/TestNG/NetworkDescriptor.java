@@ -25,7 +25,9 @@ public class NetworkDescriptor {
 	vmImage = "//*[contains(@id, 'Beanimage')]",
 	cpuReq = "//*[contains(@id, 'BeancpuRequired')]",
 	memReq = "//*[contains(@id, 'BeanmemoryRequired')]",
-	disReq = "//*[contains(@id, 'BeandiskRequired')]"
+	disReq = "//*[contains(@id, 'BeandiskRequired')]",
+	flavor = "//*[contains(@id, 'BeanflavorKey')]",
+	cpType = "//*[contains(@id, 'BeanconnectionType')]"
 	;
 	
 	ActionItem action = new ActionItem();
@@ -43,14 +45,20 @@ public class NetworkDescriptor {
 	public void createTestVNF(){
     	System.out.println("createVNF");
         action.clickMenu(driver,vnfdPortlet,newMenu);
-        
+        //general details
         fillVNF("automation","test","no","1.1","redcell","1.2");
+        //vnf virtual link
         action.clickLinkText("VNF Virtual Link");
         fillVNFVL("virtual55", "automation");
+        //vdu
         action.clickLinkText("VDU");
         fillVDU("vdu55","automation","1","image","2","2","20");
-
-		
+        //deployment flavor
+        action.clickLinkText("Deployment Flavor");
+        fillDeploymentFlavor("platinum", "test flavor", "platinum");
+        //connection point
+		action.clickLinkText("Connection Point");
+		fillConnectionPoint("Ethernet", "test cp", "OTHER");
     }
 	public void createNSD(){
 		System.out.println("create network descriptor");
@@ -77,19 +85,19 @@ public class NetworkDescriptor {
 		action.sendKey(version, v);
 		action.sendKey(vendor, ven);
 		action.sendKey(descVersion, dVer);
-		action.clickApply();
+		action.clickApply(driver);
 	}
 	//vnf virtual link
 	public void fillVNFVL(String n, String d){
 		System.out.println(n+d);
-		action.clickAdd();
+		action.clickAdd(driver);
 		action.sendKey(name, n);
 		action.sendKey(description, d);
-		action.clickApply();
+		action.clickApply(driver);
 	}
 	public void fillVDU(String n, String d, String o, String vm, String cpu, String mem, String disk){
 		System.out.println(n+d);
-		action.clickAdd();
+		action.clickAdd(driver);
 		action.sendKey(name, n);
 		action.sendKey(description, d);
 		action.sendKey(ordinal, o);
@@ -97,6 +105,21 @@ public class NetworkDescriptor {
 		action.sendKey(cpuReq, cpu);
 		action.sendKey(memReq, mem);
 		action.sendKey(disReq, disk);
-		action.clickApply();
+		action.clickApply(driver);
+	}
+	public void fillDeploymentFlavor(String n, String d, String f){
+		action.clickAdd(driver);
+		action.sendKey(name, n);
+		action.sendKey(description, d);
+		action.sendKey(flavor, f);
+		action.clickApply(driver);
+	}
+	public void fillConnectionPoint(String n, String d, String t){
+		action.clickAdd(driver);
+		action.sendKey(name, n);
+		action.sendKey(description, d);
+		action.clickElement(driver, cpType);
+		action.selectVisible(driver, cpType, t);
+		action.clickApply(driver);
 	}
 }
