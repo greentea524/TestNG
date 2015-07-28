@@ -19,6 +19,7 @@ public class ActionItem {
 	addSelection = "//input[@value='Add Selection']",
 	goButton = "//button[@value='Go']",
 	executeButton = "//button[@value='Execute']",
+	editButton = "//button[@value='Edit']",
 	cancelButton = "//button[@value='Cancel']",//"//*[contains(@id, 'cncBtn')]",
 	applyButton = "//button[@value='Apply']",//"//*[contains(@id, 'applyBtn')]",
 	addButton = "//button[@value='Add']",//"//*[contains(@id, 'addBtn')]",
@@ -99,6 +100,9 @@ public class ActionItem {
 	public void clickApply(WebDriver driver){
 		driver.findElement(By.xpath(applyButton)).click(); 
 	}
+	public void clickEdit(WebDriver driver){
+		driver.findElement(By.xpath(editButton)).click(); 
+	}
 	public void clickCancel(WebDriver driver){
 		driver.findElement(By.xpath(cancelButton)).click(); 
 	}
@@ -123,8 +127,9 @@ public class ActionItem {
 	public void clickElement(WebDriver driver, String path){
 		driver.findElement(By.xpath(path)).click();
 	}
-	public void clickLinkText(String text){
-		driver.findElement(By.linkText(text)).click();
+	public void doubleClick(WebDriver driver, String path){
+		driver.findElement(By.xpath(path)).click();
+		driver.findElement(By.xpath(path)).click();
 	}
 	public void clickLinkText(WebDriver driver, String text){
 		driver.findElement(By.linkText(text)).click();
@@ -138,12 +143,13 @@ public class ActionItem {
 		elementPath.sendKeys(text);
 	}
 	//Given the xpath, send string text to the field
-	public void sendKey(String path, String text){
+	public void sendKey(WebDriver driver, String path, String text){
 		elementPath = driver.findElement(By.xpath(path));
 		elementPath.click();
+		elementPath.clear();
 		elementPath.sendKeys(text);
 	}
-	public void sendKey(WebDriver driver, String path, String text){
+	public void sendKeyandEnter(WebDriver driver, String path, String text){
 		elementPath = driver.findElement(By.xpath(path));
 		elementPath.click();
 		elementPath.sendKeys(text);
@@ -168,8 +174,10 @@ public class ActionItem {
 		if(driver.findElement(By.xpath(path)).isDisplayed()) return true;
 		return false;
 	}
+
 	//click tree node example
 //  String test = "//*[contains(@id,':0-0')]"; //tree node 1
+//	driver.findElements(By.xpath("//span[text()='Child Item One']"))
 //  action.clickElement(test);
 //  action.clickLinkText("virtual55");
 //  notes: //input[@name='action' and @value=' Search ']

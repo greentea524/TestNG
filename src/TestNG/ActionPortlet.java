@@ -46,13 +46,13 @@ public class ActionPortlet {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		System.out.println("search action: "+target);
 		action.clickElement(driver, searchbar);
-		action.sendKey(driver, searchtext, target);
+		action.sendKeyandEnter(driver, searchtext, target);
 		action.execute(driver, row1, menuItem);
 	}
 	//test_ping ACLI
 	public void testpingACLI(){
 		System.out.println("test_ping execute");
-		action.sendKey(driver, ip1, "10.128.2.10");
+		action.sendKeyandEnter(driver, ip1, "10.128.2.10");
 		action.clickExecute(driver);
 
 	}
@@ -60,15 +60,16 @@ public class ActionPortlet {
 	//parameters: vim, type, name, tenant, vendor, flavor, mgt, ext cp, stack item#
 	public void testVnfAction(String vim, String type, String name, String t, String v, String f, String mgt, String ext, Integer item){
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		System.out.println(vim + name);
+		System.out.println(vim + " " + name);
 		//select and add vim
 		if(action.checkElement(driver,vimfind)){
-		action.sendKey(driver, vimfind, vim);
+		action.sendKeyandEnter(driver, vimfind, vim);
 		action.clickGo(driver);
 		action.selectItemInWindow(driver, row1);
 		action.clickAddSelection(driver);
 		action.clickDone(driver);
 		
+		action.clickLinkText(driver,"Input");
 		//fill out fields before executing the action
 		if(type.equalsIgnoreCase("stacks")){
 			//default
@@ -78,26 +79,29 @@ public class ActionPortlet {
 			action.selectVisible(driver, discMethod, "Servers");
 		}
 		//tenant
-		action.clickElement(driver, tenantName);
-		action.selectVisible(driver, tenantName, t);
+		if(t != null){
+			action.clickElement(driver, tenantName);
+			action.selectVisible(driver, tenantName, t);
+		}
 		//stack/server
 		action.clickElement(driver, stacksBox);
 		if(item != 0) action.selectItem(driver, stacksBox, item); //default item #1 = 0
 		action.clickPlus(driver);
+
 		//vnf fields
 		action.sendKey(driver, vnfDescName, name);
 		action.sendKey(driver, vnfDescDescription, "");
 		action.sendKey(driver, vnfDescVersion, "1.0");
-		action.sendKey(driver, vnfDescVendor, v);
-		action.sendKey(driver, vnfFlavor, f);
+		if(v != null) action.sendKey(driver, vnfDescVendor, v);
+		if(f != null) action.sendKey(driver, vnfFlavor, f);
 		action.selectItem(driver, groupVDU, 0); //0=default
-		action.sendKey(driver, mgmtInterface, mgt);
-		action.sendKey(driver, vnfExtConnPt, ext);
+		if(mgt != null) action.sendKey(driver, mgmtInterface, mgt);
+		if(ext != null) action.sendKey(driver, vnfExtConnPt, ext);
 		
 		
 		//execute
 		//action.clickExecute(driver);
-		action.clickClose(driver);
+		//action.clickClose(driver);
 		}
 		
 	}

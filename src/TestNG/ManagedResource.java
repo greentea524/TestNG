@@ -50,11 +50,11 @@ public class ManagedResource {
         //Create
         action.clickAdd(driver);
         
-        action.clickLinkText("General");
+        action.clickLinkText(driver,"General");
         //Fill device name
-        action.sendKey(equipName, "test"+Calendar.DATE);
+        action.sendKey(driver, equipName, "test"+Calendar.DATE);
         //Fill ip address
-        action.sendKey(equipIP, "10.128.99."+Calendar.DAY_OF_WEEK);
+        action.sendKey(driver, equipIP, "10.128.99."+Calendar.DAY_OF_WEEK);
 
         //Click Save or Close
         action.clickClose(driver);   

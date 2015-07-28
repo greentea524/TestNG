@@ -5,8 +5,8 @@
     <classes>
       <class name="TestNG.TestNG">
         <methods>
-          <include name="openUrl"/>
-          <include name="Action"/>
+          <include name="action"/>
+          <include name="beforeTest"/>
         </methods>
       </class> <!-- TestNG.TestNG -->
     </classes>

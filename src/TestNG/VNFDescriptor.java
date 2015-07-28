@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class NetworkDescriptor {
+public class VNFDescriptor {
 
 	private WebDriver driver;
     WebElement element;
@@ -27,20 +27,40 @@ public class NetworkDescriptor {
 	memReq = "//*[contains(@id, 'BeanmemoryRequired')]",
 	disReq = "//*[contains(@id, 'BeandiskRequired')]",
 	flavor = "//*[contains(@id, 'BeanflavorKey')]",
-	cpType = "//*[contains(@id, 'BeanconnectionType')]"
+	cpType = "//*[contains(@id, 'BeanconnectionType')]",
+	row1 = "iceDatTblRow1", //first row item of a portlet or table
+	vnfsearchtext = "//*[contains(@id,'pmeNFVVnfDescriptorsrchTxt')]",
+	vnfsearchbar = "//*[contains(@id,'pmeNFVVnfDescriptorSL')]" //vnf portlet search
 	;
 	
 	ActionItem action = new ActionItem();
 	
-	NetworkDescriptor(WebDriver driver, String url){
-		driver.get(url);
+	VNFDescriptor(WebDriver driver, String url){
 		this.driver = driver;
+		driver.get(url);
 	}
 	public void descriptor(){
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		element = driver.findElement(By.xpath(vnfdPortlet));
 		element = driver.findElement(By.xpath(nsdPortlet));
 		System.out.println(driver.getTitle());
+	}
+	public void searchAction(String target, Integer menuItem){
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		System.out.println("search action: "+target);
+		action.clickElement(driver, vnfsearchbar);
+		action.sendKeyandEnter(driver, vnfsearchtext, target);
+		action.execute(driver, row1, menuItem);
+	}
+	//editVNF parameters: name, description, enable, version, vendor, descriptor version
+	public void editVNF(String n, String d, String e, String v, String ven, String dVer){
+		System.out.println("editing "+n);
+		action.clickEdit(driver);
+		//null = don't edit
+		//fillVNF parameters: name, description, enable, version, vendor, descriptor version
+		fillVNF(null,"edit test",null,"1.1",null,"1.0");
+		
+		action.clickApply(driver);
 	}
 	public void createTestVNF(){
     	System.out.println("createVNF");
@@ -48,16 +68,16 @@ public class NetworkDescriptor {
         //general details
         fillVNF("automation","test","no","1.1","redcell","1.2");
         //vnf virtual link
-        action.clickLinkText("VNF Virtual Link");
+        action.clickLinkText(driver,"VNF Virtual Link");
         fillVNFVL("virtual55", "automation");
         //vdu
-        action.clickLinkText("VDU");
+        action.clickLinkText(driver,"VDU");
         fillVDU("vdu55","automation","1","image","2","2","20");
         //deployment flavor
-        action.clickLinkText("Deployment Flavor");
+        action.clickLinkText(driver,"Deployment Flavor");
         fillDeploymentFlavor("platinum", "test flavor", "platinum");
         //connection point
-		action.clickLinkText("Connection Point");
+		action.clickLinkText(driver,"Connection Point");
 		fillConnectionPoint("Ethernet", "test cp", "OTHER");
     }
 	public void createNSD(){
@@ -66,60 +86,60 @@ public class NetworkDescriptor {
         action.clickMenu(driver,nsdPortlet,newMenu);
 	}
 	public void fillVNF(){
-		action.sendKey(name, "name" + Calendar.SECOND);
-		action.sendKey(description, "automation");
+		action.sendKey(driver,name, "name" + Calendar.SECOND);
+		action.sendKey(driver,description, "automation");
 		action.clickElement(driver,enable);
-		action.sendKey(version, "1.0");
-		action.sendKey(vendor, "dorado");
-		action.sendKey(descVersion, "1.0");
+		action.sendKey(driver,version, "1.0");
+		action.sendKey(driver,vendor, "dorado");
+		action.sendKey(driver,descVersion, "1.0");
 	}
 	//requirements if we want VNF enabled: The Virtual Network Function Descriptor entity is invalid due to the following errors:
     //This VNFD is enabled and requires VNF Virtual Links, Connection Points, VDUs, and VNF Deployment Flavors
 	// parameters: name, description, enable, version, vendor, descriptor version
 	public void fillVNF(String n, String d, String e, String v, String ven, String dVer){
-		System.out.println(n+d);
-		action.sendKey(name, n + Calendar.SECOND);
-		action.sendKey(description, d);
-		if(e.contains("yes"))
-		action.clickElement(driver,enable);
-		action.sendKey(version, v);
-		action.sendKey(vendor, ven);
-		action.sendKey(descVersion, dVer);
+		if(n != null) action.sendKey(driver,name, n + Calendar.SECOND);
+		if(d != null) action.sendKey(driver,description, d);
+		if((e != null)) action.doubleClick(driver,enable);
+		action.clickLinkText(driver, "Version Info");
+		if(v != null) action.sendKey(driver,version, v);
+		if(ven != null) action.sendKey(driver,vendor, ven);
+		if(dVer != null) action.sendKey(driver,descVersion, dVer);
 		action.clickApply(driver);
 	}
 	//vnf virtual link
 	public void fillVNFVL(String n, String d){
-		System.out.println(n+d);
 		action.clickAdd(driver);
-		action.sendKey(name, n);
-		action.sendKey(description, d);
+		if(n != null) action.sendKey(driver, name, n);
+		if(d != null) action.sendKey(driver, description, d);
 		action.clickApply(driver);
 	}
 	public void fillVDU(String n, String d, String o, String vm, String cpu, String mem, String disk){
-		System.out.println(n+d);
 		action.clickAdd(driver);
-		action.sendKey(name, n);
-		action.sendKey(description, d);
-		action.sendKey(ordinal, o);
-		action.sendKey(vmImage, vm);
-		action.sendKey(cpuReq, cpu);
-		action.sendKey(memReq, mem);
-		action.sendKey(disReq, disk);
+		if(n != null) action.sendKey(driver, name, n);
+		if(d != null) action.sendKey(driver, description, d);
+		if(o != null) action.sendKey(driver, ordinal, o);
+		if(vm != null) action.sendKey(driver, vmImage, vm);
+		if(cpu != null) action.sendKey(driver, cpuReq, cpu);
+		if(mem != null) action.sendKey(driver, memReq, mem);
+		if(disk != null) action.sendKey(driver, disReq, disk);
 		action.clickApply(driver);
 	}
 	public void fillDeploymentFlavor(String n, String d, String f){
 		action.clickAdd(driver);
-		action.sendKey(name, n);
-		action.sendKey(description, d);
-		action.sendKey(flavor, f);
+		if(n != null) action.sendKey(driver, name, n);
+		if(d != null) action.sendKey(driver, description, d);
+		if(f != null) action.sendKey(driver, flavor, f);
 		action.clickApply(driver);
 	}
 	public void fillConnectionPoint(String n, String d, String t){
 		action.clickAdd(driver);
-		action.sendKey(name, n);
-		action.sendKey(description, d);
-		action.clickElement(driver, cpType);
-		action.selectVisible(driver, cpType, t);
+		if(n != null) action.sendKey(driver, name, n);
+		if(d != null) action.sendKey(driver, description, d);
+		if(t != null) 
+		{
+			action.clickElement(driver, cpType);
+			action.selectVisible(driver, cpType, t);
+		}
 		action.clickApply(driver);
 	}
 }
