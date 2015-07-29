@@ -20,6 +20,7 @@ public class ActionItem {
 	goButton = "//button[@value='Go']",
 	executeButton = "//button[@value='Execute']",
 	editButton = "//button[@value='Edit']",
+	deleteButton = "//input[@value='Delete']",
 	cancelButton = "//button[@value='Cancel']",//"//*[contains(@id, 'cncBtn')]",
 	applyButton = "//button[@value='Apply']",//"//*[contains(@id, 'applyBtn')]",
 	addButton = "//button[@value='Add']",//"//*[contains(@id, 'addBtn')]",
@@ -102,6 +103,9 @@ public class ActionItem {
 	}
 	public void clickEdit(WebDriver driver){
 		driver.findElement(By.xpath(editButton)).click(); 
+	}
+	public void clickDelete(WebDriver driver){
+		driver.findElement(By.xpath(deleteButton)).click(); 
 	}
 	public void clickCancel(WebDriver driver){
 		driver.findElement(By.xpath(cancelButton)).click(); 

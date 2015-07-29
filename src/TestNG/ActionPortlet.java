@@ -44,7 +44,7 @@ public class ActionPortlet {
 	//action with menuItem # passed into
 	public void searchAction(String target, Integer menuItem){
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		System.out.println("search action: "+target);
+		//System.out.println("search action: "+target);
 		action.clickElement(driver, searchbar);
 		action.sendKeyandEnter(driver, searchtext, target);
 		action.execute(driver, row1, menuItem);
@@ -87,25 +87,23 @@ public class ActionPortlet {
 			action.selectVisible(driver, tenantName, t);
 		}
 		//stack/server
-		if(type != null) action.clickElement(driver, stacksBox);
 		if(item != 0) action.selectItem(driver, stacksBox, item); //default item #1 = 0
 		action.clickLinkText(driver,"Input");
 		action.clickPlus(driver);
-		//action.clickByClass(driver, "aui-icon-plus");
 
 		//vnf fields
 		action.sendKey(driver, vnfDescName, name);
 		action.sendKey(driver, vnfDescDescription, "autotest");
-		action.sendKey(driver, vnfDescVersion, "1.0");
+		action.sendKey(driver, vnfDescVersion, "1.1");
 		if(v != null) action.sendKey(driver, vnfDescVendor, v);
 		if(f != null) action.sendKey(driver, vnfFlavor, f);
-		action.selectItem(driver, groupVDU, 0); //0=default
+		action.selectItem(driver, groupVDU, 0); //0=default TODO if want to change this setting
 		if(mgt != null) action.sendKey(driver, mgmtInterface, mgt);
 		if(ext != null) action.sendKey(driver, vnfExtConnPt, ext);
 		
 		
 		//execute
-		action.clickExecute(driver);
+		//action.clickExecute(driver);
 		action.clickClose(driver);
 		}
 		

@@ -11,6 +11,9 @@ public class VNFDescriptor {
 
 	private WebDriver driver;
     WebElement element;
+    private int 
+    editItem = 2,
+    deleteItem = 4;
 	private String 
 	newMenu = "//*[contains(@id,'_newNfvId')]",
 	nsdPortlet = "//*[contains(@id,'NFVNetworkServiceDescriptorForm:ApmsttNFVNetworkServiceDescriptor')]",
@@ -43,14 +46,22 @@ public class VNFDescriptor {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		element = driver.findElement(By.xpath(vnfdPortlet));
 		element = driver.findElement(By.xpath(nsdPortlet));
-		System.out.println(driver.getTitle());
 	}
-	public void searchAction(String target, Integer menuItem){
+	public void editAction(String target){
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		System.out.println("search action: "+target);
 		action.clickElement(driver, vnfsearchbar);
 		action.sendKeyandEnter(driver, vnfsearchtext, target);
-		action.execute(driver, row1, menuItem);
+		action.execute(driver, row1, editItem);
+	}
+	public void deleteAction(String target){
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		System.out.println("search action: "+target);
+		action.clickElement(driver, vnfsearchbar);
+		action.sendKeyandEnter(driver, vnfsearchtext, target);
+		action.execute(driver, row1, deleteItem);
+		action.clickDelete(driver);
+		
 	}
 	//editVNF parameters: name, description, enable, version, vendor, descriptor version
 	public void editVNF(String n, String d, String e, String v, String ven, String dVer){

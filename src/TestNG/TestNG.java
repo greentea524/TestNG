@@ -80,8 +80,7 @@ public class TestNG {
 		}
 		
 	}
-	//VNF descriptor - create vnfd
-	//vnfd.searchAction - find VNF and edit
+	//VNF descriptor - create or edit vnfd
 	//@Test(priority = 2)
 	public void VNFD(){
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -89,14 +88,13 @@ public class TestNG {
 		vnfd.descriptor();
 
 		//edit test
-		vnfd.searchAction("test-vm1", 2);//2 - vnf edit menuitem
+		vnfd.editAction("test-vm1");
 		//editVNF parameters: name, description, enable, version, vendor, descriptor version
 
 		//create test
 		//nsd.createTestVNF();
 		//nsd.createNSD();
 	}
-	//@Test(priority = 3)
     //@Test(priority = 3)
     //Test openstack availability
     public void checkOpenstack(){
@@ -111,8 +109,7 @@ public class TestNG {
 
 	@Test(priority = 4)
 	//Action - execute an action
-	public void action(){
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	public void actionVNFD(){
 		//actionPortlet.searchAction("test_ping");
 		//actionPortlet.testpingACLI();
 		System.out.println("NFV-440");
@@ -126,8 +123,18 @@ public class TestNG {
 		
 		// TODO negative test cases
 		testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
-		testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name
+		testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name	
+		
+		//openstack5 10.101.50.2 - this controller fails
+		testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0); 
+		testVnfAction("openstack5","stacks","VNFauto6","admin","dorado","gold","mgt0","pk0",1);
+		
+		//openstack6 10.101.170.3
+		testVnfAction("openstack6","stacks","VNFauto5","QA","internal","bronze","mgt0","pkt0",0);
+		
 		}
+		
+		
 		//check vnfd exist in db
 		db = new DBValidation();
 		db.dbtest(url, "root", "dorado", "owbusdb", 3306, false);
@@ -135,15 +142,56 @@ public class TestNG {
 			if(db.checkValueInTable("VNFauto1", "nfv_vnfdescriptor")) System.out.println("VNFauto1 ok");
 			if(db.checkValueInTable("VNFauto2", "nfv_vnfdescriptor")) System.out.println("VNFauto2 ok");
 			if(db.checkValueInTable("VNFauto3", "nfv_vnfdescriptor")) System.out.println("VNFauto3 ok");
+			if(db.checkValueInTable("VNFauto4", "nfv_vnfdescriptor")) System.out.println("VNFauto4 ok");
+			if(db.checkValueInTable("VNFauto5", "nfv_vnfdescriptor")) System.out.println("VNFauto5 ok");
+			if(db.checkValueInTable("VNFauto6", "nfv_vnfdescriptor")) System.out.println("VNFauto5 ok");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		db.close();
 		
+		//delete test
+		on = false;
+		if(on){
+		deleteVNFD("VNFauto1");
+		deleteVNFD("VNFauto2");
+		deleteVNFD("VNFauto3");
+		}
+		
 	}
+	//VNF descriptor - delete vnfd
+	public void deleteVNFD(String toDelete){
+		boolean ok = false;
+		
+		//check vnfd exist in db
+		db = new DBValidation();
+		db.dbtest(url, "root", "dorado", "owbusdb", 3306, false);
+		try {
+			if(db.checkValueInTable(toDelete, "nfv_vnfdescriptor")) {
+				System.out.println(toDelete + " can delete");
+				ok = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db.close();
+		
+		//delete if exist
+		if(ok){
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			vnfd = new VNFDescriptor(driver, baseUrl + "/group/root/descriptor");
+			vnfd.descriptor();
+			vnfd.deleteAction(toDelete);
+			System.out.println(toDelete + " deleted");
+		}
+
+	}
+
 	//parameters: vim, type, name, tenant, vendor, flavor, mgt, ext cp, stack item #
 	public void testVnfAction(String vim, String type, String name, String t, String v, String f, String mgt, String ext, Integer stackItem){
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		actionPortlet = new ActionPortlet(driver, baseUrl + "/group/root/cm/actions");
 		//menu item execute is 2
 		actionPortlet.searchAction("Create Vnf Descriptor from Openstack Artifacts",2);//2 - action execute menu

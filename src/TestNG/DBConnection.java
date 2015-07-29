@@ -39,8 +39,8 @@ public class DBConnection {
 				Class.forName(oracleDriver);
 				try {
 					conn = DriverManager.getConnection("jdbc:oracle:thin:@"+url+":"+port+":"+dbName,user,password);
-					DatabaseMetaData meta = conn.getMetaData();
-					System.out.println("JDBC driver version is " + meta.getDriverVersion());
+					//DatabaseMetaData meta = conn.getMetaData();
+					//System.out.println("JDBC driver version is " + meta.getDriverVersion());
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -51,8 +51,8 @@ public class DBConnection {
 				Class.forName(mySQLDriver);
 				try {
 					conn = DriverManager.getConnection("jdbc:mysql://"+url+":"+port+"/"+dbName,user,password);
-					DatabaseMetaData meta = conn.getMetaData();
-					System.out.println("JDBC driver version is " + meta.getDriverVersion());
+					//DatabaseMetaData meta = conn.getMetaData();
+					//System.out.println("JDBC driver version is " + meta.getDriverVersion());
 				} catch (SQLException e) {
 					
 					e.printStackTrace();
@@ -82,7 +82,7 @@ public class DBConnection {
 				stmt.close();
 				result.close();
 			}	
-			System.out.println("DB connection close successful");
+			//System.out.println("DB connection close successful");
 			return true;
 		}catch(SQLException e){
 			return false;
