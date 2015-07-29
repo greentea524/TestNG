@@ -11,7 +11,7 @@ public class ActionPortlet {
 	discMethod = "//*[contains(@id,'DiscoveryMethod')]",
 	tenantName = "//*[contains(@id,'TenantName')]",
 	stacksBox = "//*[contains(@id,'Fld')]",
-    vnfDescName = "//*[contains(@id,'VnfDescriptorName')]",
+	vnfDescName = "//*[contains(@id,'VnfDescriptorName')]",
     vnfDescDescription = "//*[contains(@id,'VnfDescriptorDescription')]",
     vnfDescVersion = "//*[contains(@id,'VnfDescriptorVersion')]",
     vnfDescVendor = "//*[contains(@id,'VnfDescriptorVendor')]",
@@ -71,12 +71,15 @@ public class ActionPortlet {
 		
 		action.clickLinkText(driver,"Input");
 		//fill out fields before executing the action
-		if(type.equalsIgnoreCase("stacks")){
+		if(type != null){
+			
+			if(type.equalsIgnoreCase("stacks")){
 			//default
-		}
-		if(type.equalsIgnoreCase("servers")){
-			action.clickElement(driver, discMethod);
-			action.selectVisible(driver, discMethod, "Servers");
+			}
+			if(type.equalsIgnoreCase("servers")){
+				action.clickElement(driver, discMethod);
+				action.selectVisible(driver, discMethod, "Servers");
+			}
 		}
 		//tenant
 		if(t != null){
@@ -84,13 +87,15 @@ public class ActionPortlet {
 			action.selectVisible(driver, tenantName, t);
 		}
 		//stack/server
-		action.clickElement(driver, stacksBox);
+		if(type != null) action.clickElement(driver, stacksBox);
 		if(item != 0) action.selectItem(driver, stacksBox, item); //default item #1 = 0
+		action.clickLinkText(driver,"Input");
 		action.clickPlus(driver);
+		//action.clickByClass(driver, "aui-icon-plus");
 
 		//vnf fields
 		action.sendKey(driver, vnfDescName, name);
-		action.sendKey(driver, vnfDescDescription, "");
+		action.sendKey(driver, vnfDescDescription, "autotest");
 		action.sendKey(driver, vnfDescVersion, "1.0");
 		if(v != null) action.sendKey(driver, vnfDescVendor, v);
 		if(f != null) action.sendKey(driver, vnfFlavor, f);
@@ -100,8 +105,8 @@ public class ActionPortlet {
 		
 		
 		//execute
-		//action.clickExecute(driver);
-		//action.clickClose(driver);
+		action.clickExecute(driver);
+		action.clickClose(driver);
 		}
 		
 	}

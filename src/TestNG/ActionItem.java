@@ -13,8 +13,8 @@ public class ActionItem {
 	WebDriver driver;
 	WebElement elementPath;
 	String 
-	plusIcon = "//*[contains(@id, 'plus')]",
-	minusIcon = "//*[contains(@id, 'minus')]",
+	plusIcon = "//button[contains(@name, 'plus')]",
+	minusIcon = "//button[contains(@name, 'minus')]",
 	doneButton = "//input[@value='Done']",
 	addSelection = "//input[@value='Add Selection']",
 	goButton = "//button[@value='Go']",

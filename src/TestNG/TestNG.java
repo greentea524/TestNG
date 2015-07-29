@@ -1,6 +1,5 @@
 package TestNG;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
@@ -117,22 +116,25 @@ public class TestNG {
 		//actionPortlet.searchAction("test_ping");
 		//actionPortlet.testpingACLI();
 		System.out.println("NFV-440");
+		
+		boolean on = true;
+		if(on){
 		//openstack1 10.101.160.2
 		//parameters: vim, type, vnf test name, tenant, vendor, flavor, mgt, ext cp, stack item #
-		//testVnfAction("openstack1","stacks","VNFtest","admin","dorado","simple","mgt1","pkt1",0);
-		//testVnfAction("openstack1","servers","test-vm1","test2","dorado","simple","mgt2","pkt2",0);
+		testVnfAction("openstack1","stacks","VNFauto1","admin","dorado","simple","mgt1","pkt1",0);
+		testVnfAction("openstack1","servers","VNFauto2","test2","dorado","m1.tiny","mgt2","pkt2",0);
 		
 		// TODO negative test cases
-		testVnfAction("openstack1","stacks","VNF25232",null,null,"platinum","port1","port2",0);
-		
-		
+		testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
+		testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name
+		}
 		//check vnfd exist in db
 		db = new DBValidation();
 		db.dbtest(url, "root", "dorado", "owbusdb", 3306, false);
 		try {
-			if(db.checkValueInTable("test-vm1", "nfv_vnfdescriptor")) System.out.println("test-vm1 ok");
-			if(db.checkValueInTable("F5-BIGtest", "nfv_vnfdescriptor")) System.out.println("F5-BIGtest ok");
-			if(db.checkValueInTable("VNFtest", "nfv_vnfdescriptor")) System.out.println("VNFtest-vm1 ok");
+			if(db.checkValueInTable("VNFauto1", "nfv_vnfdescriptor")) System.out.println("VNFauto1 ok");
+			if(db.checkValueInTable("VNFauto2", "nfv_vnfdescriptor")) System.out.println("VNFauto2 ok");
+			if(db.checkValueInTable("VNFauto3", "nfv_vnfdescriptor")) System.out.println("VNFauto3 ok");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
