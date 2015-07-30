@@ -81,19 +81,20 @@ public class TestNG {
 		
 	}
 	//VNF descriptor - create or edit vnfd
-	//@Test(priority = 2)
+	@Test(priority = 2)
 	public void VNFD(){
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		vnfd = new VNFDescriptor(driver, baseUrl + "/group/root/descriptor");
 		vnfd.descriptor();
 
 		//edit test
-		vnfd.editAction("test-vm1");
+		//vnfd.editAction("test-vm1");
 		//editVNF parameters: name, description, enable, version, vendor, descriptor version
 
 		//create test
-		//nsd.createTestVNF();
-		//nsd.createNSD();
+		vnfd.createTestVNF("VNFtest");
+		//delete test
+		deleteVNFD("VNFtest");
 	}
     //@Test(priority = 3)
     //Test openstack availability
@@ -107,7 +108,7 @@ public class TestNG {
     	
     }
 
-	@Test(priority = 4)
+	//@Test(priority = 4)
 	//Action - execute an action
 	public void actionVNFD(){
 		//actionPortlet.searchAction("test_ping");
@@ -169,7 +170,7 @@ public class TestNG {
 		db.dbtest(url, "root", "dorado", "owbusdb", 3306, false);
 		try {
 			if(db.checkValueInTable(toDelete, "nfv_vnfdescriptor")) {
-				System.out.println(toDelete + " can delete");
+				System.out.println(toDelete + " exist");
 				ok = true;
 			}
 		} catch (SQLException e) {
@@ -188,6 +189,7 @@ public class TestNG {
 		}
 
 	}
+
 
 	//parameters: vim, type, name, tenant, vendor, flavor, mgt, ext cp, stack item #
 	public void testVnfAction(String vim, String type, String name, String t, String v, String f, String mgt, String ext, Integer stackItem){

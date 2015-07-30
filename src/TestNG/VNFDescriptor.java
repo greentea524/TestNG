@@ -31,6 +31,11 @@ public class VNFDescriptor {
 	disReq = "//*[contains(@id, 'BeandiskRequired')]",
 	flavor = "//*[contains(@id, 'BeanflavorKey')]",
 	cpType = "//*[contains(@id, 'BeanconnectionType')]",
+	bandwidthReq = "//*[contains(@id, 'BeanbandwidthRequired')]",
+	cpAddSource = "//*[contains(@id, 'BeanvnfAddressSource')]",
+	dataType = "//*[contains(@id, 'BeandataType')]",
+	stringValue = "//*[contains(@id, 'BeanstringValue')]",
+	
 	row1 = "iceDatTblRow1", //first row item of a portlet or table
 	vnfsearchtext = "//*[contains(@id,'pmeNFVVnfDescriptorsrchTxt')]",
 	vnfsearchbar = "//*[contains(@id,'pmeNFVVnfDescriptorSL')]" //vnf portlet search
@@ -73,23 +78,30 @@ public class VNFDescriptor {
 		
 		action.clickApply(driver);
 	}
-	public void createTestVNF(){
+	public void createTestVNF(String name){
     	System.out.println("createVNF");
         action.clickMenu(driver,vnfdPortlet,newMenu);
         //general details
-        fillVNF("automation","test","no","1.1","redcell","1.2");
+        fillVNF(name,"test","1.1","redcell","1.2",null); 
         //vnf virtual link
         action.clickLinkText(driver,"VNF Virtual Link");
         fillVNFVL("virtual55", "automation");
         //vdu
         action.clickLinkText(driver,"VDU");
-        fillVDU("vdu55","automation","1","image","2","2","20");
+        fillVDU("vdu55","automation","1","image","2","2","20","1000");
         //deployment flavor
         action.clickLinkText(driver,"Deployment Flavor");
         fillDeploymentFlavor("platinum", "test flavor", "platinum");
         //connection point
 		action.clickLinkText(driver,"Connection Point");
-		fillConnectionPoint("Ethernet", "test cp", "OTHER");
+		fillConnectionPoint("Ethernet", "test cp", "OTHER","sure");
+		action.clickLinkText(driver,"Connection Point");
+		fillConnectionPoint("Ethernet2", "test cp", "OTHER","sure");
+		//data values
+		action.clickLinkText(driver, "Data Values");
+		fillDataValue("data13513","test","string","test");
+		//save
+		action.clickSave(driver);
     }
 	public void createNSD(){
 		System.out.println("create network descriptor");
@@ -107,10 +119,10 @@ public class VNFDescriptor {
 	//requirements if we want VNF enabled: The Virtual Network Function Descriptor entity is invalid due to the following errors:
     //This VNFD is enabled and requires VNF Virtual Links, Connection Points, VDUs, and VNF Deployment Flavors
 	// parameters: name, description, enable, version, vendor, descriptor version
-	public void fillVNF(String n, String d, String e, String v, String ven, String dVer){
-		if(n != null) action.sendKey(driver,name, n + Calendar.SECOND);
+	public void fillVNF(String n, String d, String v, String ven, String dVer, String e){
+		if(n != null) action.sendKey(driver,name, n);
 		if(d != null) action.sendKey(driver,description, d);
-		if((e != null)) action.doubleClick(driver,enable);
+		if((e != null)) action.clickElement(driver,enable);
 		action.clickLinkText(driver, "Version Info");
 		if(v != null) action.sendKey(driver,version, v);
 		if(ven != null) action.sendKey(driver,vendor, ven);
@@ -118,13 +130,15 @@ public class VNFDescriptor {
 		action.clickApply(driver);
 	}
 	//vnf virtual link
+	//parameters: name and description TODO add extended details
 	public void fillVNFVL(String n, String d){
 		action.clickAdd(driver);
 		if(n != null) action.sendKey(driver, name, n);
 		if(d != null) action.sendKey(driver, description, d);
 		action.clickApply(driver);
 	}
-	public void fillVDU(String n, String d, String o, String vm, String cpu, String mem, String disk){
+	//name, description, ordinal, vmImage name, cpu req, mem req, disk req, bandwidth req
+	public void fillVDU(String n, String d, String o, String vm, String cpu, String mem, String disk, String bw){
 		action.clickAdd(driver);
 		if(n != null) action.sendKey(driver, name, n);
 		if(d != null) action.sendKey(driver, description, d);
@@ -133,8 +147,11 @@ public class VNFDescriptor {
 		if(cpu != null) action.sendKey(driver, cpuReq, cpu);
 		if(mem != null) action.sendKey(driver, memReq, mem);
 		if(disk != null) action.sendKey(driver, disReq, disk);
+		if(bw != null) action.sendKey(driver, bandwidthReq, bw);
+		
 		action.clickApply(driver);
 	}
+	//name, description, flavor
 	public void fillDeploymentFlavor(String n, String d, String f){
 		action.clickAdd(driver);
 		if(n != null) action.sendKey(driver, name, n);
@@ -142,7 +159,8 @@ public class VNFDescriptor {
 		if(f != null) action.sendKey(driver, flavor, f);
 		action.clickApply(driver);
 	}
-	public void fillConnectionPoint(String n, String d, String t){
+	//parameter: name, description, connection point type, add source checkbox
+	public void fillConnectionPoint(String n, String d, String t, String as){
 		action.clickAdd(driver);
 		if(n != null) action.sendKey(driver, name, n);
 		if(d != null) action.sendKey(driver, description, d);
@@ -151,6 +169,21 @@ public class VNFDescriptor {
 			action.clickElement(driver, cpType);
 			action.selectVisible(driver, cpType, t);
 		}
+		if((as != null)) action.clickElement(driver, cpAddSource);
 		action.clickApply(driver);
+	}
+	//parameter: name, description, data type, value
+	public void fillDataValue(String n, String d, String t, String v){
+		action.clickAdd(driver);
+		if(n != null) action.sendKey(driver, name, n);
+		if(d != null) action.sendKey(driver, description, d);
+		if(t != null) 
+		{
+			action.clickElement(driver, dataType);
+			action.selectVisible(driver, dataType, t);
+		}
+		if(v != null) action.sendKey(driver, stringValue, v);
+		action.clickApply(driver);
+		
 	}
 }

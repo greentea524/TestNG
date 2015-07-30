@@ -2,35 +2,35 @@
 <testng-results skipped="0" failed="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="61221" started-at="2015-07-29T23:00:45Z" finished-at="2015-07-29T23:01:46Z">
+  <suite name="Default suite" duration-ms="55751" started-at="2015-07-30T18:28:53Z" finished-at="2015-07-30T18:29:49Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="61221" started-at="2015-07-29T23:00:45Z" finished-at="2015-07-29T23:01:46Z">
+    <test name="Default test" duration-ms="55751" started-at="2015-07-30T18:28:53Z" finished-at="2015-07-30T18:29:49Z">
       <class name="TestNG.TestNG">
-        <test-method status="PASS" signature="beforeTest()[pri:0, instance:TestNG.TestNG@261e8e]" name="beforeTest" is-config="true" duration-ms="101" started-at="2015-07-29T16:00:45Z" finished-at="2015-07-29T16:00:45Z">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:TestNG.TestNG@261e8e]" name="beforeTest" is-config="true" duration-ms="251" started-at="2015-07-30T11:28:53Z" finished-at="2015-07-30T11:28:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest -->
-        <test-method status="PASS" signature="a_test()[pri:0, instance:TestNG.TestNG@261e8e]" name="a_test" duration-ms="5" started-at="2015-07-29T16:00:45Z" finished-at="2015-07-29T16:00:45Z">
+        <test-method status="PASS" signature="a_test()[pri:0, instance:TestNG.TestNG@261e8e]" name="a_test" duration-ms="6" started-at="2015-07-30T11:28:53Z" finished-at="2015-07-30T11:28:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- a_test -->
-        <test-method status="PASS" signature="b_test()[pri:0, instance:TestNG.TestNG@261e8e]" name="b_test" duration-ms="1" started-at="2015-07-29T16:00:45Z" finished-at="2015-07-29T16:00:45Z">
+        <test-method status="PASS" signature="b_test()[pri:0, instance:TestNG.TestNG@261e8e]" name="b_test" duration-ms="1" started-at="2015-07-30T11:28:53Z" finished-at="2015-07-30T11:28:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- b_test -->
-        <test-method status="PASS" signature="c_test()[pri:0, instance:TestNG.TestNG@261e8e]" name="c_test" duration-ms="0" started-at="2015-07-29T16:00:45Z" finished-at="2015-07-29T16:00:45Z">
+        <test-method status="PASS" signature="c_test()[pri:0, instance:TestNG.TestNG@261e8e]" name="c_test" duration-ms="1" started-at="2015-07-30T11:28:53Z" finished-at="2015-07-30T11:28:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- c_test -->
-        <test-method status="PASS" signature="login()[pri:0, instance:TestNG.TestNG@261e8e]" name="login" duration-ms="3401" started-at="2015-07-29T16:00:45Z" finished-at="2015-07-29T16:00:49Z">
+        <test-method status="PASS" signature="login()[pri:0, instance:TestNG.TestNG@261e8e]" name="login" duration-ms="2495" started-at="2015-07-30T11:28:53Z" finished-at="2015-07-30T11:28:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- login -->
-        <test-method status="PASS" signature="actionVNFD()[pri:0, instance:TestNG.TestNG@261e8e]" name="actionVNFD" duration-ms="57701" started-at="2015-07-29T16:00:49Z" finished-at="2015-07-29T16:01:46Z">
+        <test-method status="PASS" signature="VNFD()[pri:0, instance:TestNG.TestNG@261e8e]" name="VNFD" duration-ms="52987" started-at="2015-07-30T11:28:56Z" finished-at="2015-07-30T11:29:49Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- actionVNFD -->
+        </test-method> <!-- VNFD -->
       </class> <!-- TestNG.TestNG -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
