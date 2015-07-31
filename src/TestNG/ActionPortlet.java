@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 public class ActionPortlet {
 
 	private WebDriver driver;
+	
+	//web element xpath
 	private String
 	discMethod = "//*[contains(@id,'DiscoveryMethod')]",
 	tenantName = "//*[contains(@id,'TenantName')]",
@@ -103,7 +105,7 @@ public class ActionPortlet {
 		
 		
 		//execute
-		//action.clickExecute(driver);
+		action.clickExecute(driver);
 		action.clickClose(driver);
 		}
 		

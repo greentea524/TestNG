@@ -14,9 +14,9 @@ public class VNFDescriptor {
     private int 
     editItem = 2,
     deleteItem = 4;
+    //web element xpath
 	private String 
 	newMenu = "//*[contains(@id,'_newNfvId')]",
-	nsdPortlet = "//*[contains(@id,'NFVNetworkServiceDescriptorForm:ApmsttNFVNetworkServiceDescriptor')]",
 	vnfdPortlet = "//*[contains(@id,'NFVVnfDescriptorForm:ApmsttNFVVnfDescriptor')]",
 	name = "//*[contains(@id,'Beanname')]",
 	description = "//*[contains(@id,'Beandescription')]",
@@ -50,7 +50,6 @@ public class VNFDescriptor {
 	public void descriptor(){
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		element = driver.findElement(By.xpath(vnfdPortlet));
-		element = driver.findElement(By.xpath(nsdPortlet));
 	}
 	public void editAction(String target){
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -78,6 +77,8 @@ public class VNFDescriptor {
 		
 		action.clickApply(driver);
 	}
+	//requirements if we want VNF enabled: The Virtual Network Function Descriptor entity is invalid due to the following errors:
+    //This VNFD is enabled and requires VNF Virtual Links, Connection Points, VDUs, and VNF Deployment Flavors
 	public void createTestVNF(String name){
     	System.out.println("createVNF");
         action.clickMenu(driver,vnfdPortlet,newMenu);
@@ -103,11 +104,7 @@ public class VNFDescriptor {
 		//save
 		action.clickSave(driver);
     }
-	public void createNSD(){
-		System.out.println("create network descriptor");
-    	System.out.println(nsdPortlet);
-        action.clickMenu(driver,nsdPortlet,newMenu);
-	}
+
 	public void fillVNF(){
 		action.sendKey(driver,name, "name" + Calendar.SECOND);
 		action.sendKey(driver,description, "automation");
@@ -116,9 +113,7 @@ public class VNFDescriptor {
 		action.sendKey(driver,vendor, "dorado");
 		action.sendKey(driver,descVersion, "1.0");
 	}
-	//requirements if we want VNF enabled: The Virtual Network Function Descriptor entity is invalid due to the following errors:
-    //This VNFD is enabled and requires VNF Virtual Links, Connection Points, VDUs, and VNF Deployment Flavors
-	// parameters: name, description, enable, version, vendor, descriptor version
+	// parameters: name, description, version, vendor, descriptor version, enable
 	public void fillVNF(String n, String d, String v, String ven, String dVer, String e){
 		if(n != null) action.sendKey(driver,name, n);
 		if(d != null) action.sendKey(driver,description, d);

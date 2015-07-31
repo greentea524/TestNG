@@ -5,7 +5,7 @@
     <classes>
       <class name="TestNG.TestNG">
         <methods>
-          <include name="VNFD"/>
+          <include name="actionVNFD"/>
           <include name="beforeTest"/>
         </methods>
       </class> <!-- TestNG.TestNG -->

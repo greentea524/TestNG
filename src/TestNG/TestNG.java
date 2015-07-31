@@ -24,6 +24,7 @@ public class TestNG {
 	ManagedResource test = new ManagedResource(driver);
 	ActionPortlet actionPortlet;
 	VNFDescriptor vnfd;
+	NSDescriptor nsd;
 	OpenStack os;
 	DBValidation db;
 	
@@ -49,7 +50,6 @@ public class TestNG {
 	public void b_test() {
 		//throw new SkipException("skipping b_test...");	
 	}
-	//login p1
 	@Test(priority = 1)
 	public void login(){
 		loginUrl(baseUrl);
@@ -80,8 +80,9 @@ public class TestNG {
 		}
 		
 	}
+
 	//VNF descriptor - create or edit vnfd
-	@Test(priority = 2)
+	//@Test(priority = 2)
 	public void VNFD(){
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		vnfd = new VNFDescriptor(driver, baseUrl + "/group/root/descriptor");
@@ -119,19 +120,18 @@ public class TestNG {
 		if(on){
 		//openstack1 10.101.160.2
 		//parameters: vim, type, vnf test name, tenant, vendor, flavor, mgt, ext cp, stack item #
-		testVnfAction("openstack1","stacks","VNFauto1","admin","dorado","simple","mgt1","pkt1",0);
-		testVnfAction("openstack1","servers","VNFauto2","test2","dorado","m1.tiny","mgt2","pkt2",0);
-		
-		// TODO negative test cases
-		testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
-		testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name	
+		//testVnfAction("openstack1","stacks","VNFauto1","admin","dorado","simple","mgt1","pkt1",0);
+		//testVnfAction("openstack1","servers","VNFauto2","test2","dorado","m1.tiny","mgt2","pkt2",0);
+		//testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
+		//testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name	
 		
 		//openstack5 10.101.50.2 - this controller fails
-		testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0); 
-		testVnfAction("openstack5","stacks","VNFauto6","admin","dorado","gold","mgt0","pk0",1);
-		
+		//testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0); 
+		//testVnfAction("openstack5","stacks","VNFauto6","admin","dorado","gold","mgt0","pk0",1);
+		//testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0);
+			
 		//openstack6 10.101.170.3
-		testVnfAction("openstack6","stacks","VNFauto5","QA","internal","bronze","mgt0","pkt0",0);
+		//testVnfAction("openstack6","stacks","VNFauto5","QA","internal","bronze","mgt0","pkt0",0);
 		
 		}
 		
@@ -145,7 +145,7 @@ public class TestNG {
 			if(db.checkValueInTable("VNFauto3", "nfv_vnfdescriptor")) System.out.println("VNFauto3 ok");
 			if(db.checkValueInTable("VNFauto4", "nfv_vnfdescriptor")) System.out.println("VNFauto4 ok");
 			if(db.checkValueInTable("VNFauto5", "nfv_vnfdescriptor")) System.out.println("VNFauto5 ok");
-			if(db.checkValueInTable("VNFauto6", "nfv_vnfdescriptor")) System.out.println("VNFauto5 ok");
+			if(db.checkValueInTable("VNFauto6", "nfv_vnfdescriptor")) System.out.println("VNFauto6 ok");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,6 +161,16 @@ public class TestNG {
 		}
 		
 	}
+	@Test(priority = 5)
+	//network service descriptor test - deploy
+	public void NSD(){
+		nsd = new NSDescriptor(driver, baseUrl + "/group/root/descriptor");
+		nsd.descriptor();
+		nsd.createNSD();
+	}
+	
+	/*************** functions ****************/
+	
 	//VNF descriptor - delete vnfd
 	public void deleteVNFD(String toDelete){
 		boolean ok = false;
