@@ -81,6 +81,7 @@ public class TestNG {
 		
 	}
 
+	/****************** 2 **********/
 	//VNF descriptor - create or edit vnfd
 	//@Test(priority = 2)
 	public void VNFD(){
@@ -97,6 +98,7 @@ public class TestNG {
 		//delete test
 		deleteVNFD("VNFtest");
 	}
+	/***************** 3 ************/
     //@Test(priority = 3)
     //Test openstack availability
     public void checkOpenstack(){
@@ -109,6 +111,7 @@ public class TestNG {
     	
     }
 
+    /***************** 4 *********************/
 	//@Test(priority = 4)
 	//Action - execute an action
 	public void actionVNFD(){
@@ -120,7 +123,7 @@ public class TestNG {
 		if(on){
 		//openstack1 10.101.160.2
 		//parameters: vim, type, vnf test name, tenant, vendor, flavor, mgt, ext cp, stack item #
-		//testVnfAction("openstack1","stacks","VNFauto1","admin","dorado","simple","mgt1","pkt1",0);
+		testVnfAction("openstack1","stacks","VNFauto1","admin","dorado","simple","mgt1","pkt1",0);
 		//testVnfAction("openstack1","servers","VNFauto2","test2","dorado","m1.tiny","mgt2","pkt2",0);
 		//testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
 		//testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name	
@@ -161,12 +164,14 @@ public class TestNG {
 		}
 		
 	}
-	@Test(priority = 5)
+	/**************** 5 **************/
+	@Test(priority = 5) 
 	//network service descriptor test - deploy
 	public void NSD(){
 		nsd = new NSDescriptor(driver, baseUrl + "/group/root/descriptor");
 		nsd.descriptor();
 		nsd.createNSD();
+		//nsd.deployNSD("test");
 	}
 	
 	/*************** functions ****************/

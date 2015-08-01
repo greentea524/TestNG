@@ -9,17 +9,20 @@ import org.openqa.selenium.WebElement;
 public class NSDescriptor {
 	private WebDriver driver;
 	WebElement element;
+	private int
+	deployItem = 3;
 	private String 
 	newMenu = "//*[contains(@id,'_newNfvId')]",
 	nsdPortlet = "//*[contains(@id,'NFVNetworkServiceDescriptorForm:ApmsttNFVNetworkServiceDescriptor')]",
-	name = "//*[contains(@id,'Beanname')]",
-	description = "//*[contains(@id,'Beandescription')]",
-	enable = "//*[contains(@id,'Beanenabled')]",
-	version = "//*[contains(@id,'Beanversion')]",
-	vendor = "//*[contains(@id,'Beanvendor')]",
+	name = "//*[contains(@id,'Bean_name')]",
+	description = "//*[contains(@id,'Bean_description')]",
+	enable = "//*[contains(@id,'Bean_enabled')]",
+	version = "//*[contains(@id,'Bean_version')]",
+	vendor = "//*[contains(@id,'Bean_vendor')]",
 	findVnfd = "//*[contains(@id,'fString')]", //search field for vnfd
-	vnfdItem = "//*[contains(@id,'outCell')]",
-	row1 = "iceDatTblRow1" //first row item of a portlet or table
+	
+	nsdsearchbar = 	"//*[contains(@id,'NFVNetworkServiceDescriptorSL')]",
+	nsdsearchtext = "//*[contains(@id,'NFVNetworkServiceDescriptorsrchTxt')]"
 	;
 	ActionItem action = new ActionItem();
 	
@@ -41,6 +44,13 @@ public class NSDescriptor {
         action.clickLinkText(driver, "VNF Descriptor");
         addVNFD("VNFauto2");
 	}
+	public void deployNSD(String target){
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		System.out.println("search action: "+target);
+		action.clickElement(driver, nsdsearchbar);
+		action.sendKeyandEnter(driver, nsdsearchtext, target);
+		action.execute(driver, target, deployItem);
+	}
 	// parameters: name, description, version, vendor, enable
 	public void fillNSD(String n, String d, String v, String ven, String e){
 		if(n != null) action.sendKey(driver,name, n);
@@ -56,8 +66,8 @@ public class NSDescriptor {
 		action.sendKeyandEnter(driver, findVnfd, n);
 		action.clickGo(driver);
 		driver.switchTo();
-		action.selectItemInWindow(driver, vnfdItem);
-
+		action.selectItem(driver, n);
+		action.clickSelect(driver);
 
 		
 	}

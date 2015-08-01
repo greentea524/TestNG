@@ -18,6 +18,7 @@ public class ActionItem {
 	plusIcon = "//button[contains(@name, 'plus')]",
 	minusIcon = "//button[contains(@name, 'minus')]",
 	doneButton = "//input[@value='Done']",
+	selectButton = "//input[@value='Select']",
 	addSelection = "//input[@value='Add Selection']",
 	goButton = "//button[@value='Go']",
 	executeButton = "//button[@value='Execute']",
@@ -67,9 +68,24 @@ public class ActionItem {
         		.build();
         moveAction.perform();
 	}
-	//execute menu item # item
-	public void execute(WebDriver driver, String path, Integer item){
-		elementPath = driver.findElement(By.className(path));
+	//execute menu item # item against target
+	public void execute(WebDriver driver, String target, Integer item){
+		String path = "//span[@title='"+ target +"']";
+		elementPath = driver.findElement(By.xpath(path));
+        Actions builder = new Actions(driver);
+        Action moveAction = builder
+        		.moveToElement(elementPath)
+        		.click()
+        		.moveToElement(driver.findElement(By.className("EmptyPadding")))
+                .contextClick()
+                .moveByOffset(10,menuItemUnit*item) //item unit * menu item #
+                .clickAndHold()
+        		.release()
+        		.build();
+        moveAction.perform();
+	}
+	public void executeAction(WebDriver driver, String target, Integer item){
+		elementPath = driver.findElement(By.className(target));
         Actions builder = new Actions(driver);
         Action moveAction = builder
         		.moveToElement(elementPath)
@@ -90,6 +106,11 @@ public class ActionItem {
         		.click()
         		.build();
         moveAction.perform();
+	}
+	public void selectItem(WebDriver driver, String target){
+		String path = "//span[@title='"+ target +"']";
+		elementPath = driver.findElement(By.xpath(path));
+		elementPath.click();
 	}
 	public void clickClose(WebDriver driver){
 		driver.findElement(By.xpath(closeButton)).click(); 
@@ -124,6 +145,9 @@ public class ActionItem {
 	public void clickDone(WebDriver driver){
 		driver.findElement(By.xpath(doneButton)).click(); 
 	}
+	public void clickSelect(WebDriver driver){
+		driver.findElement(By.xpath(selectButton)).click(); 
+	}
 	public void clickGo(WebDriver driver){
 		driver.findElement(By.xpath(goButton)).click(); 
 	}
@@ -147,6 +171,11 @@ public class ActionItem {
 		elementPath = driver.findElement(By.id(id));
 		elementPath.click();
 		elementPath.sendKeys(text);
+	}
+	public void clickByTitle(WebDriver driver, String text){
+		String path = "//span[@title='"+ text +"']";
+		elementPath = driver.findElement(By.xpath(path));
+		elementPath.click();
 	}
 	//Given the xpath, send string text to the field
 	public void sendKey(WebDriver driver, String path, String text){

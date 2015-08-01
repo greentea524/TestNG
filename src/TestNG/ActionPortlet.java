@@ -49,7 +49,7 @@ public class ActionPortlet {
 		//System.out.println("search action: "+target);
 		action.clickElement(driver, searchbar);
 		action.sendKeyandEnter(driver, searchtext, target);
-		action.execute(driver, row1, menuItem);
+		action.executeAction(driver, row1, menuItem);
 	}
 	//test_ping ACLI
 	public void testpingACLI(){
