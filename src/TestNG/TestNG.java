@@ -96,7 +96,7 @@ public class TestNG {
 		//create test
 		vnfd.createTestVNF("VNFtest");
 		//delete test
-		deleteVNFD("VNFtest");
+		//deleteVNFD("VNFtest");
 	}
 	/***************** 3 ************/
     //@Test(priority = 3)
@@ -131,8 +131,7 @@ public class TestNG {
 		//openstack5 10.101.50.2 - this controller fails
 		//testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0); 
 		//testVnfAction("openstack5","stacks","VNFauto6","admin","dorado","gold","mgt0","pk0",1);
-		//testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0);
-			
+
 		//openstack6 10.101.170.3
 		//testVnfAction("openstack6","stacks","VNFauto5","QA","internal","bronze","mgt0","pkt0",0);
 		
@@ -165,7 +164,7 @@ public class TestNG {
 		
 	}
 	/**************** 5 **************/
-	@Test(priority = 5) 
+	//@Test(priority = 5) 
 	//network service descriptor test - deploy
 	public void NSD(){
 		nsd = new NSDescriptor(driver, baseUrl + "/group/root/descriptor");

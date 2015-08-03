@@ -94,7 +94,7 @@ public class ActionPortlet {
 		action.clickPlus(driver);
 
 		//vnf fields
-		action.sendKey(driver, vnfDescName, name);
+		if(name != null) action.sendKey(driver, vnfDescName, name);
 		action.sendKey(driver, vnfDescDescription, "autotest");
 		action.sendKey(driver, vnfDescVersion, "1.1");
 		if(v != null) action.sendKey(driver, vnfDescVendor, v);

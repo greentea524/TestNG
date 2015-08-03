@@ -107,10 +107,22 @@ public class ActionItem {
         		.build();
         moveAction.perform();
 	}
+	//select item -- matching the name
 	public void selectItem(WebDriver driver, String target){
 		String path = "//span[@title='"+ target +"']";
 		elementPath = driver.findElement(By.xpath(path));
 		elementPath.click();
+	}
+	//select item from drop down list
+	public void selectItem(WebDriver driver, String path, Integer item){
+		elementPath = driver.findElement(By.xpath(path));
+        if(item != 0){
+        	do{
+        		elementPath.sendKeys(Keys.DOWN);
+        		item--;
+        	}while(item != 0);
+        }
+        if(item == 0) elementPath.sendKeys(Keys.ENTER);
 	}
 	public void clickClose(WebDriver driver){
 		driver.findElement(By.xpath(closeButton)).click(); 
@@ -195,16 +207,7 @@ public class ActionItem {
         new Select(elementPath).selectByVisibleText(text);
         elementPath.sendKeys(Keys.ENTER);
 	}
-	public void selectItem(WebDriver driver, String path, Integer item){
-		elementPath = driver.findElement(By.xpath(path));
-        if(item != 0){
-        	do{
-        		elementPath.sendKeys(Keys.DOWN);
-        		item--;
-        	}while(item != 0);
-        }
-        if(item == 0) elementPath.sendKeys(Keys.ENTER);
-	}
+
 	public boolean checkElement(WebDriver driver, String path){
 		if(driver.findElement(By.xpath(path)).isDisplayed()) return true;
 		return false;

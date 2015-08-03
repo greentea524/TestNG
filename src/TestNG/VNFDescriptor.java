@@ -18,23 +18,23 @@ public class VNFDescriptor {
 	private String 
 	newMenu = "//*[contains(@id,'_newNfvId')]",
 	vnfdPortlet = "//*[contains(@id,'NFVVnfDescriptorForm:ApmsttNFVVnfDescriptor')]",
-	name = "//*[contains(@id,'Beanname')]",
-	description = "//*[contains(@id,'Beandescription')]",
-	enable = "//*[contains(@id,'Beanenabled')]",
-	version = "//*[contains(@id,'Beanversion')]",
-	vendor = "//*[contains(@id,'Beanvendor')]",
-	descVersion = "//*[contains(@id,'BeandescriptorVersion')]",
-	ordinal = "//*[contains(@id, 'Beanordinal')]",
-	vmImage = "//*[contains(@id, 'Beanimage')]",
-	cpuReq = "//*[contains(@id, 'BeancpuRequired')]",
-	memReq = "//*[contains(@id, 'BeanmemoryRequired')]",
-	disReq = "//*[contains(@id, 'BeandiskRequired')]",
-	flavor = "//*[contains(@id, 'BeanflavorKey')]",
-	cpType = "//*[contains(@id, 'BeanconnectionType')]",
-	bandwidthReq = "//*[contains(@id, 'BeanbandwidthRequired')]",
-	cpAddSource = "//*[contains(@id, 'BeanvnfAddressSource')]",
-	dataType = "//*[contains(@id, 'BeandataType')]",
-	stringValue = "//*[contains(@id, 'BeanstringValue')]",
+	name = "//*[contains(@id,'Bean_name')]",
+	description = "//*[contains(@id,'Bean_description')]",
+	enable = "//*[contains(@id,'Bean_enabled')]",
+	version = "//*[contains(@id,'Bean_version')]",
+	vendor = "//*[contains(@id,'Bean_vendor')]",
+	descVersion = "//*[contains(@id,'Bean_descriptorVersion')]",
+	ordinal = "//*[contains(@id, 'Bean_ordinal')]",
+	vmImage = "//*[contains(@id, 'Bean_image')]",
+	cpuReq = "//*[contains(@id, 'Bean_cpuRequired')]",
+	memReq = "//*[contains(@id, 'Bean_memoryRequired')]",
+	disReq = "//*[contains(@id, 'Bean_diskRequired')]",
+	flavor = "//*[contains(@id, 'Bean_flavorKey')]",
+	cpType = "//*[contains(@id, 'Bean_connectionType')]",
+	bandwidthReq = "//*[contains(@id, 'Bean_bandwidthRequired')]",
+	cpAddSource = "//*[contains(@id, 'Bean_vnfAddressSource')]",
+	dataType = "//*[contains(@id, 'Bean_dataType')]",
+	stringValue = "//*[contains(@id, 'Bean_stringValue')]",
 	
 	row1 = "iceDatTblRow1", //first row item of a portlet or table
 	vnfsearchtext = "//*[contains(@id,'pmeNFVVnfDescriptorsrchTxt')]",
@@ -104,15 +104,6 @@ public class VNFDescriptor {
 		//save
 		action.clickSave(driver);
     }
-
-	public void fillVNF(){
-		action.sendKey(driver,name, "name" + Calendar.SECOND);
-		action.sendKey(driver,description, "automation");
-		action.clickElement(driver,enable);
-		action.sendKey(driver,version, "1.0");
-		action.sendKey(driver,vendor, "dorado");
-		action.sendKey(driver,descVersion, "1.0");
-	}
 	// parameters: name, description, version, vendor, descriptor version, enable
 	public void fillVNF(String n, String d, String v, String ven, String dVer, String e){
 		if(n != null) action.sendKey(driver,name, n);
