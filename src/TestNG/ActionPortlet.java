@@ -12,7 +12,8 @@ public class ActionPortlet {
 	private String
 	discMethod = "//*[contains(@id,'DiscoveryMethod')]",
 	tenantName = "//*[contains(@id,'TenantName')]",
-	stacksBox = "//*[contains(@id,'Fld')]",
+	stacksBox = "//*[contains(@id,'StacksFld')]",
+    serversBox = "//*[contains(@id,'ServersFld')]",
 	vnfDescName = "//*[contains(@id,'VnfDescriptorName')]",
     vnfDescDescription = "//*[contains(@id,'VnfDescriptorDescription')]",
     vnfDescVersion = "//*[contains(@id,'VnfDescriptorVersion')]",
@@ -89,13 +90,18 @@ public class ActionPortlet {
 			action.selectVisible(driver, tenantName, t);
 		}
 		//stack/server
-		if(item != 0) action.selectItem(driver, stacksBox, item); //default item #1 = 0
+		if(item != 0){
+			action.clickLinkText(driver,"Input"); //refocus
+			if(type.equalsIgnoreCase("stacks")) action.selectItem(driver, stacksBox, item); //default item #1 = 0
+			if(type.equalsIgnoreCase("servers")) action.selectItem(driver, serversBox, item);
+		}
+		//if(item != 0) action.selectItem(driver, stacksBox, item);
 		action.clickLinkText(driver,"Input");
 		action.clickPlus(driver);
 
 		//vnf fields
 		if(name != null) action.sendKey(driver, vnfDescName, name);
-		action.sendKey(driver, vnfDescDescription, vim+" "+type+" "+f+mgt+ext);
+		action.sendKey(driver, vnfDescDescription, vim+" "+type+" "+f);
 		action.sendKey(driver, vnfDescVersion, "1.1");
 		if(v != null) action.sendKey(driver, vnfDescVendor, v);
 		if(f != null) action.sendKey(driver, vnfFlavor, f);

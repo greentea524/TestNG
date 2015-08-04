@@ -3,7 +3,6 @@ package TestNG;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -123,16 +122,17 @@ public class TestNG {
 		if(on){
 		//openstack1 10.101.160.2
 		//parameters: vim, type, vnf test name, tenant, vendor, flavor, mgt, ext cp, stack item #
-		testVnfAction("openstack1","stacks","VNFauto1","admin","vnf","simple","mgt1","pkt1",0);//vnf
-		testVnfAction("openstack1","servers","VNFauto2","test2","testvm","m1.tiny","mgt2","pkt2",0);//test-vm1
-		testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
+		//testVnfAction("openstack1","stacks","VNFauto1","admin","vnf","simple","mgt1","pkt1",0);//vnf
+		//testVnfAction("openstack1","servers","VNFauto2","admin","testvm","m1.tiny","mgt2","pkt2",0);//test-vm1
+		//testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
 		//testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name	
 		
 		//openstack5 10.101.50.2 
 		//openstack6 10.101.170.3
-		testVnfAction("openstack5","stacks","VNFauto4","admin","test-sonus","silver","mgt0","pk0",0); 
-		testVnfAction("openstack5","stacks","VNFauto5","admin","teststack","gold","mgt0","pk0",1); 
-		testVnfAction("openstack6","stacks","VNFauto6","QA","f5","bronze","mgt0","pkt0",0); 
+		//testVnfAction("openstack5","stacks","VNFauto4","admin","test-sonus","silver","mgt0","pk0",0); 
+		//testVnfAction("openstack5","stacks","VNFauto5","admin","teststack","gold","mgt0","pk0",1);
+		testVnfAction("openstack5","stacks","VNFauto6","cindy1","csnbox","m1.medium","mgt0","pk0",0); 
+		testVnfAction("openstack5","stacks","VNFauto7","cindy1","vsbc","m1.large","mgt0","pk0",1); 
 		
 		}
 		
@@ -141,12 +141,7 @@ public class TestNG {
 		db = new DBValidation();
 		db.dbtest(url, "root", "dorado", "owbusdb", 3306, false);
 		try {
-			if(db.checkValueInTable("VNFauto1", "nfv_vnfdescriptor")) System.out.println("VNFauto1 ok");
-			if(db.checkValueInTable("VNFauto2", "nfv_vnfdescriptor")) System.out.println("VNFauto2 ok");
-			if(db.checkValueInTable("VNFauto3", "nfv_vnfdescriptor")) System.out.println("VNFauto3 ok");
-			if(db.checkValueInTable("VNFauto4", "nfv_vnfdescriptor")) System.out.println("VNFauto4 ok");
-			if(db.checkValueInTable("VNFauto5", "nfv_vnfdescriptor")) System.out.println("VNFauto5 ok");
-			if(db.checkValueInTable("VNFauto6", "nfv_vnfdescriptor")) System.out.println("VNFauto6 ok");
+			db.checkValueInTable("nfv_vnfdescriptor");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -32,8 +32,16 @@ public class DBValidation {
 		rs = db.executeQuery(query);
 		while (rs.next())
 		{
-			//System.out.println(rs.getString(1));
 			if(rs.getString(1).equalsIgnoreCase(name)) return true;
+		}
+		return false;
+	}
+	public boolean checkValueInTable(String table) throws SQLException{
+		String query = "SELECT name FROM `owbusdb`."+table+"` ORDER BY name";
+		rs = db.executeQuery(query);
+		while (rs.next())
+		{
+			System.out.println(rs.getString(1));
 		}
 		return false;
 	}
