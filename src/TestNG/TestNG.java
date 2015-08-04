@@ -36,20 +36,20 @@ public class TestNG {
 		
 		
     }
-	@Test
-	public void c_test() {
-		//Assert.fail();
-	}
-	
-	@Test
-	public void a_test() {
-		Assert.assertTrue(true);
-	}
-	
-	@Test
-	public void b_test() {
-		//throw new SkipException("skipping b_test...");	
-	}
+//	@Test
+//	public void c_test() {
+//		//Assert.fail();
+//	}
+//	
+//	@Test
+//	public void a_test() {
+//		Assert.assertTrue(true);
+//	}
+//	
+//	@Test
+//	public void b_test() {
+//		//throw new SkipException("skipping b_test...");	
+//	}
 	@Test(priority = 1)
 	public void login(){
 		loginUrl(baseUrl);
@@ -112,7 +112,7 @@ public class TestNG {
     }
 
     /***************** 4 *********************/
-	//@Test(priority = 4)
+	@Test(priority = 4)
 	//Action - execute an action
 	public void actionVNFD(){
 		//actionPortlet.searchAction("test_ping");
@@ -123,17 +123,16 @@ public class TestNG {
 		if(on){
 		//openstack1 10.101.160.2
 		//parameters: vim, type, vnf test name, tenant, vendor, flavor, mgt, ext cp, stack item #
-		testVnfAction("openstack1","stacks","VNFauto1","admin","dorado","simple","mgt1","pkt1",0);
-		//testVnfAction("openstack1","servers","VNFauto2","test2","dorado","m1.tiny","mgt2","pkt2",0);
-		//testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
+		testVnfAction("openstack1","stacks","VNFauto1","admin","vnf","simple","mgt1","pkt1",0);//vnf
+		testVnfAction("openstack1","servers","VNFauto2","test2","testvm","m1.tiny","mgt2","pkt2",0);//test-vm1
+		testVnfAction("openstack1","stacks","VNFauto3",null,null,"basic","port1","port2",0); //no required tenant
 		//testVnfAction("openstack1",null,null,null,null,"platinum","port1","port2",0); //no vnfd name	
 		
-		//openstack5 10.101.50.2 - this controller fails
-		//testVnfAction("openstack5","stacks","VNFauto4","admin","dorado","silver","mgt0","pk0",0); 
-		//testVnfAction("openstack5","stacks","VNFauto6","admin","dorado","gold","mgt0","pk0",1);
-
+		//openstack5 10.101.50.2 
 		//openstack6 10.101.170.3
-		//testVnfAction("openstack6","stacks","VNFauto5","QA","internal","bronze","mgt0","pkt0",0);
+		testVnfAction("openstack5","stacks","VNFauto4","admin","test-sonus","silver","mgt0","pk0",0); 
+		testVnfAction("openstack5","stacks","VNFauto5","admin","teststack","gold","mgt0","pk0",1); 
+		testVnfAction("openstack6","stacks","VNFauto6","QA","f5","bronze","mgt0","pkt0",0); 
 		
 		}
 		

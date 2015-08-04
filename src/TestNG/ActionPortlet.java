@@ -95,7 +95,7 @@ public class ActionPortlet {
 
 		//vnf fields
 		if(name != null) action.sendKey(driver, vnfDescName, name);
-		action.sendKey(driver, vnfDescDescription, "autotest");
+		action.sendKey(driver, vnfDescDescription, vim+" "+type+" "+f+mgt+ext);
 		action.sendKey(driver, vnfDescVersion, "1.1");
 		if(v != null) action.sendKey(driver, vnfDescVendor, v);
 		if(f != null) action.sendKey(driver, vnfFlavor, f);
